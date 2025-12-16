@@ -1,13 +1,15 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowRight, CheckCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import serviceDecoration from "@/assets/service-decoration.jpg";
 import serviceScenography from "@/assets/service-scenography.jpg";
 import serviceLocation from "@/assets/service-location.jpg";
 import serviceCorporate from "@/assets/service-corporate.jpg";
 import serviceLogistique from "@/assets/service-logistique.jpg";
 import serviceInternational from "@/assets/service-international.jpg";
+import { FAQSection } from "@/components/home/FAQSection";
 
 const services = [
   {
@@ -54,6 +56,15 @@ const services = [
   },
 ];
 
+const advantages = [
+  "Un interlocuteur unique du brief au démontage",
+  "Visualisation 3D avant fabrication",
+  "Ateliers intégrés de 800m²",
+  "Disponibilité 24/7 pendant vos événements",
+  "Réseau de partenaires internationaux",
+  "15 ans d'expérience dans le luxe",
+];
+
 export default function Services() {
   return (
     <Layout>
@@ -87,6 +98,27 @@ export default function Services() {
               Du brief initial au démontage, nous vous accompagnons à chaque étape 
               pour créer des événements d'exception.
             </motion.p>
+          </div>
+        </div>
+      </section>
+
+      {/* Advantages */}
+      <section className="py-12 bg-card border-y border-border">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
+            {advantages.map((advantage, index) => (
+              <motion.div
+                key={advantage}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                className="flex items-center gap-2 text-sm"
+              >
+                <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                <span className="text-muted-foreground">{advantage}</span>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -175,10 +207,10 @@ export default function Services() {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { step: "01", title: "Brief", description: "Analyse de vos besoins et définition du projet" },
-              { step: "02", title: "Conception", description: "Design et visualisation 3D de votre événement" },
-              { step: "03", title: "Installation", description: "Montage professionnel par notre équipe" },
-              { step: "04", title: "Démontage", description: "Repli soigné et nettoyage des lieux" },
+              { step: "01", title: "Brief", description: "Analyse approfondie de vos besoins, contraintes et objectifs. Visite du lieu si nécessaire." },
+              { step: "02", title: "Conception", description: "Design créatif avec visualisation 3D et planches tendances pour validation." },
+              { step: "03", title: "Installation", description: "Montage professionnel par nos équipes formées. Coordination sur site jusqu'à la livraison." },
+              { step: "04", title: "Démontage", description: "Repli soigné après l'événement. Nettoyage et remise en état des lieux." },
             ].map((item, index) => (
               <motion.div
                 key={item.step}
@@ -186,7 +218,7 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.15 }}
-                className="text-center"
+                className="text-center relative"
               >
                 <div className="text-6xl font-display font-bold text-primary/20 mb-4">
                   {item.step}
@@ -197,9 +229,51 @@ export default function Services() {
                 <p className="text-muted-foreground text-sm">
                   {item.description}
                 </p>
+                {index < 3 && (
+                  <div className="hidden md:block absolute top-8 right-0 w-1/2 h-[2px] bg-gradient-to-r from-primary/30 to-transparent" />
+                )}
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <FAQSection />
+
+      {/* CTA */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4 text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-display font-bold text-card-foreground mb-4"
+          >
+            Un projet en tête ?
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-muted-foreground mb-8 max-w-2xl mx-auto"
+          >
+            Contactez-nous pour discuter de vos besoins et obtenir un devis personnalisé.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            <Button variant="gold" size="lg" asChild>
+              <Link to="/contact">
+                Demander un devis
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
     </Layout>

@@ -6,7 +6,29 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle, Instagram, Linkedin, Facebook } from "lucide-react";
+import { ContactCTA } from "@/components/contact/ContactCTA";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+const contactFaqs = [
+  {
+    question: "Quel est votre délai de réponse ?",
+    answer: "Nous nous engageons à répondre à toutes les demandes sous 24h ouvrées. Pour les demandes urgentes, n'hésitez pas à nous appeler directement.",
+  },
+  {
+    question: "Proposez-vous des visites de votre showroom ?",
+    answer: "Absolument ! Notre showroom est ouvert sur rendez-vous du lundi au vendredi. Vous pourrez y découvrir nos collections de mobilier et nos créations.",
+  },
+  {
+    question: "Comment obtenir un devis ?",
+    answer: "Remplissez le formulaire ci-contre avec les détails de votre projet. Plus vous êtes précis (date, lieu, nombre d'invités, budget), plus notre proposition sera adaptée.",
+  },
+];
 
 export default function Contact() {
   const { toast } = useToast();
@@ -16,7 +38,9 @@ export default function Contact() {
     email: "",
     phone: "",
     company: "",
-    subject: "",
+    eventType: "",
+    eventDate: "",
+    budget: "",
     message: "",
   });
 
@@ -37,14 +61,16 @@ export default function Contact() {
       email: "",
       phone: "",
       company: "",
-      subject: "",
+      eventType: "",
+      eventDate: "",
+      budget: "",
       message: "",
     });
     setIsSubmitting(false);
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -88,8 +114,11 @@ export default function Contact() {
         </div>
       </section>
 
+      {/* Quick Contact */}
+      <ContactCTA />
+
       {/* Contact Form & Info */}
-      <section className="py-20 bg-muted">
+      <section className="py-20 bg-muted" id="form">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Contact Info */}
@@ -103,7 +132,7 @@ export default function Contact() {
                 Nos coordonnées
               </h2>
 
-              <div className="space-y-6">
+              <div className="space-y-6 mb-8">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-5 h-5 text-primary" />
@@ -167,8 +196,39 @@ export default function Contact() {
                 </div>
               </div>
 
+              {/* Social Links */}
+              <div className="mb-8">
+                <h3 className="font-semibold text-card-foreground mb-4">Suivez-nous</h3>
+                <div className="flex gap-4">
+                  <a
+                    href="https://instagram.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-colors"
+                  >
+                    <Instagram className="w-5 h-5 text-muted-foreground hover:text-primary" />
+                  </a>
+                  <a
+                    href="https://linkedin.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-colors"
+                  >
+                    <Linkedin className="w-5 h-5 text-muted-foreground hover:text-primary" />
+                  </a>
+                  <a
+                    href="https://facebook.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-colors"
+                  >
+                    <Facebook className="w-5 h-5 text-muted-foreground hover:text-primary" />
+                  </a>
+                </div>
+              </div>
+
               {/* Map Placeholder */}
-              <div className="mt-8 aspect-video bg-card border border-border rounded-lg overflow-hidden">
+              <div className="aspect-video bg-card border border-border rounded-lg overflow-hidden">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2630.7!2d2.6!3d48.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDQ4JzAwLjAiTiAywrAzNicwMC4wIkU!5e0!3m2!1sfr!2sfr!4v1234567890"
                   width="100%"
@@ -252,31 +312,77 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Sujet *</Label>
-                    <Input
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                      placeholder="Objet de votre demande"
-                      className="bg-muted border-border focus:border-primary"
-                    />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="eventType">Type d'événement *</Label>
+                      <select
+                        id="eventType"
+                        name="eventType"
+                        value={formData.eventType}
+                        onChange={handleChange}
+                        required
+                        className="flex h-10 w-full rounded-md border border-border bg-muted px-3 py-2 text-sm text-card-foreground focus:border-primary focus:outline-none"
+                      >
+                        <option value="">Sélectionnez...</option>
+                        <option value="gala">Gala / Soirée</option>
+                        <option value="corporate">Événement corporate</option>
+                        <option value="lancement">Lancement produit</option>
+                        <option value="seminaire">Séminaire / Convention</option>
+                        <option value="mariage">Mariage</option>
+                        <option value="autre">Autre</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="eventDate">Date prévue</Label>
+                      <Input
+                        id="eventDate"
+                        name="eventDate"
+                        type="date"
+                        value={formData.eventDate}
+                        onChange={handleChange}
+                        className="bg-muted border-border focus:border-primary"
+                      />
+                    </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="message">Message *</Label>
+                    <Label htmlFor="budget">Budget estimé</Label>
+                    <select
+                      id="budget"
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleChange}
+                      className="flex h-10 w-full rounded-md border border-border bg-muted px-3 py-2 text-sm text-card-foreground focus:border-primary focus:outline-none"
+                    >
+                      <option value="">Sélectionnez...</option>
+                      <option value="5000-10000">5 000 € - 10 000 €</option>
+                      <option value="10000-25000">10 000 € - 25 000 €</option>
+                      <option value="25000-50000">25 000 € - 50 000 €</option>
+                      <option value="50000-100000">50 000 € - 100 000 €</option>
+                      <option value="100000+">+ 100 000 €</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Décrivez votre projet *</Label>
                     <Textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       required
-                      placeholder="Décrivez votre projet, la date de l'événement, le lieu..."
+                      placeholder="Décrivez votre événement : lieu, nombre d'invités, thématique souhaitée, contraintes particulières..."
                       rows={6}
                       className="bg-muted border-border focus:border-primary resize-none"
                     />
+                  </div>
+
+                  <div className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <p>
+                      En soumettant ce formulaire, vous acceptez que vos données soient utilisées 
+                      pour vous recontacter dans le cadre de votre demande.
+                    </p>
                   </div>
 
                   <Button
@@ -296,6 +402,29 @@ export default function Contact() {
                     )}
                   </Button>
                 </form>
+              </div>
+
+              {/* FAQ */}
+              <div className="mt-8">
+                <h3 className="text-xl font-display font-bold text-card-foreground mb-4">
+                  Questions fréquentes
+                </h3>
+                <Accordion type="single" collapsible className="space-y-3">
+                  {contactFaqs.map((faq, index) => (
+                    <AccordionItem
+                      key={index}
+                      value={`item-${index}`}
+                      className="bg-card border border-border rounded-lg px-4 data-[state=open]:border-primary/50"
+                    >
+                      <AccordionTrigger className="text-left text-card-foreground hover:text-primary font-medium py-4 text-sm hover:no-underline">
+                        {faq.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground pb-4 text-sm leading-relaxed">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </div>
             </motion.div>
           </div>

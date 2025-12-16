@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
-import { ArrowRight, Award, Users, Heart, Shield } from "lucide-react";
+import { ArrowRight, Award, Users, Heart, Shield, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import aboutTeam from "@/assets/about-team.jpg";
+import { TeamSection } from "@/components/about/TeamSection";
+import { TimelineSection } from "@/components/about/TimelineSection";
+import { CertificationsSection } from "@/components/about/CertificationsSection";
 
 const values = [
   {
@@ -166,8 +169,40 @@ export default function About() {
         </div>
       </section>
 
+      {/* Timeline */}
+      <TimelineSection />
+
+      {/* Team */}
+      <TeamSection />
+
+      {/* Certifications */}
+      <CertificationsSection />
+
+      {/* Testimonial */}
+      <section className="py-24 bg-muted">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <Quote className="w-16 h-16 text-primary/20 mx-auto mb-8" />
+            <blockquote className="text-2xl md:text-3xl font-display text-card-foreground mb-8 leading-relaxed">
+              "Travailler avec BA Attitude, c'est avoir la garantie d'un partenaire 
+              fiable, créatif et professionnel. Leur équipe a su transformer notre 
+              vision en une réalité spectaculaire."
+            </blockquote>
+            <div>
+              <p className="font-semibold text-card-foreground">Marc Lefebvre</p>
+              <p className="text-muted-foreground">Directeur Général, Agence EVENTIS</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Stats */}
-      <section className="py-20 bg-muted">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
@@ -195,7 +230,7 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-background">
+      <section className="py-24 bg-card border-t border-border">
         <div className="container mx-auto px-4 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -205,11 +240,21 @@ export default function About() {
           >
             Prêt à travailler avec nous ?
           </motion.h2>
-          <motion.div
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
+            className="text-muted-foreground mb-8 max-w-2xl mx-auto"
+          >
+            Discutons de votre prochain projet et découvrez comment nous pouvons 
+            transformer vos idées en réalité.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
           >
             <Button variant="gold" size="lg" asChild>
               <Link to="/contact">

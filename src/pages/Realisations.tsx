@@ -2,7 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import serviceDecoration from "@/assets/service-decoration.jpg";
 import serviceScenography from "@/assets/service-scenography.jpg";
 import serviceLocation from "@/assets/service-location.jpg";
@@ -11,6 +12,7 @@ import serviceLogistique from "@/assets/service-logistique.jpg";
 import serviceInternational from "@/assets/service-international.jpg";
 import heroImage from "@/assets/hero-event.jpg";
 import aboutTeam from "@/assets/about-team.jpg";
+import { FeaturedProject } from "@/components/realisations/FeaturedProject";
 
 const categories = ["Tous", "Luxe", "Corporate", "Événementiel"];
 
@@ -22,6 +24,8 @@ const projects = [
     category: "Luxe",
     image: heroImage,
     description: "Décoration complète pour le gala annuel de la maison DIOR",
+    year: "2023",
+    location: "Paris, France",
   },
   {
     id: 2,
@@ -30,6 +34,8 @@ const projects = [
     category: "Luxe",
     image: serviceDecoration,
     description: "Scénographie immersive pour le lancement d'une nouvelle collection",
+    year: "2023",
+    location: "Rome, Italie",
   },
   {
     id: 3,
@@ -38,6 +44,8 @@ const projects = [
     category: "Corporate",
     image: serviceScenography,
     description: "Aménagement et décoration de l'espace convention",
+    year: "2023",
+    location: "Dublin, Irlande",
   },
   {
     id: 4,
@@ -46,6 +54,8 @@ const projects = [
     category: "Luxe",
     image: serviceCorporate,
     description: "Décoration du dîner VIP pendant la Fashion Week Paris",
+    year: "2022",
+    location: "Paris, France",
   },
   {
     id: 5,
@@ -54,6 +64,8 @@ const projects = [
     category: "Corporate",
     image: serviceInternational,
     description: "Organisation complète du séminaire international",
+    year: "2022",
+    location: "Riyad, Arabie Saoudite",
   },
   {
     id: 6,
@@ -62,6 +74,8 @@ const projects = [
     category: "Luxe",
     image: serviceLocation,
     description: "Mise en scène luxueuse pour la soirée anniversaire",
+    year: "2022",
+    location: "Paris, France",
   },
   {
     id: 7,
@@ -70,6 +84,8 @@ const projects = [
     category: "Événementiel",
     image: serviceLogistique,
     description: "Logistique et décoration pour l'événement officiel",
+    year: "2021",
+    location: "Paris, France",
   },
   {
     id: 8,
@@ -78,7 +94,14 @@ const projects = [
     category: "Événementiel",
     image: aboutTeam,
     description: "Décoration thématique pour un événement privé",
+    year: "2021",
+    location: "Marne-la-Vallée, France",
   },
+];
+
+const allClients = [
+  "DIOR", "BVLGARI", "CHAUMET", "FENDI", "GIVENCHY", "GOOGLE", 
+  "ARAMCO", "L'ORÉAL", "CARTIER", "CHANEL", "HERMÈS", "LOUIS VUITTON"
 ];
 
 export default function Realisations() {
@@ -123,6 +146,34 @@ export default function Realisations() {
           </div>
         </div>
       </section>
+
+      {/* Stats */}
+      <section className="py-12 bg-card border-y border-border">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { value: "500+", label: "Projets réalisés" },
+              { value: "12", label: "Pays d'intervention" },
+              { value: "50+", label: "Clients prestige" },
+              { value: "15", label: "Années d'expertise" },
+            ].map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <div className="text-3xl font-display font-bold text-primary">{stat.value}</div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Project */}
+      <FeaturedProject />
 
       {/* Filters */}
       <section className="py-8 bg-muted border-y border-border sticky top-20 z-30">
@@ -170,9 +221,12 @@ export default function Realisations() {
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
-                      <div className="absolute top-4 left-4">
+                      <div className="absolute top-4 left-4 flex gap-2">
                         <span className="px-3 py-1 bg-primary/90 text-primary-foreground text-xs font-medium rounded-full">
                           {project.category}
+                        </span>
+                        <span className="px-3 py-1 bg-background/80 text-card-foreground text-xs font-medium rounded-full">
+                          {project.year}
                         </span>
                       </div>
                     </div>
@@ -186,6 +240,9 @@ export default function Realisations() {
                           </h3>
                           <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
                             {project.description}
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-2">
+                            📍 {project.location}
                           </p>
                         </div>
                         <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all duration-300">
@@ -208,22 +265,67 @@ export default function Realisations() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-8 block"
+            className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4 block"
           >
             Ils nous ont fait confiance
           </motion.span>
-          <motion.div
+          <motion.h3
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="flex flex-wrap justify-center gap-8 text-2xl font-display text-muted-foreground/50"
+            className="text-2xl font-display font-bold text-card-foreground mb-8"
           >
-            {["DIOR", "BVLGARI", "CHAUMET", "FENDI", "GIVENCHY", "GOOGLE", "ARAMCO"].map((client) => (
+            Des marques <span className="text-gradient-gold">prestigieuses</span>
+          </motion.h3>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="flex flex-wrap justify-center gap-6 md:gap-10 text-xl md:text-2xl font-display text-muted-foreground/50"
+          >
+            {allClients.map((client) => (
               <span key={client} className="hover:text-primary transition-colors cursor-default">
                 {client}
               </span>
             ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4 text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-display font-bold text-card-foreground mb-4"
+          >
+            Votre projet sera le prochain ?
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-muted-foreground mb-8 max-w-2xl mx-auto"
+          >
+            Discutons de votre événement et créons ensemble une expérience inoubliable.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            <Button variant="gold" size="lg" asChild>
+              <Link to="/contact">
+                Démarrer un projet
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </section>
