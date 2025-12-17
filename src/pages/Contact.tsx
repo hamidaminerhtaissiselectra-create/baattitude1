@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle, Instagram, Linkedin, Facebook } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Instagram, Linkedin, Facebook } from "lucide-react";
 import { ContactCTA } from "@/components/contact/ContactCTA";
+import { MultiStepQuoteForm } from "@/components/contact/MultiStepQuoteForm";
 import {
   Accordion,
   AccordionContent,
@@ -21,63 +17,16 @@ const contactFaqs = [
     answer: "Nous nous engageons à répondre à toutes les demandes sous 24h ouvrées. Pour les demandes urgentes, n'hésitez pas à nous appeler directement.",
   },
   {
-    question: "Proposez-vous des visites de votre showroom ?",
-    answer: "Absolument ! Notre showroom est ouvert sur rendez-vous du lundi au vendredi. Vous pourrez y découvrir nos collections de mobilier et nos créations.",
+    question: "Comment obtenir un devis ?",
+    answer: "Remplissez le formulaire de demande de devis en 4 étapes. Plus vous êtes précis (type d'événement, lieu, dates), plus notre proposition sera adaptée à vos besoins.",
   },
   {
-    question: "Comment obtenir un devis ?",
-    answer: "Remplissez le formulaire ci-contre avec les détails de votre projet. Plus vous êtes précis (date, lieu, nombre d'invités, budget), plus notre proposition sera adaptée.",
+    question: "Intervenez-vous en urgence ?",
+    answer: "Oui, notre réactivité est l'une de nos forces. Selon la complexité du projet, nous pouvons intervenir sous 48 à 72h. Contactez-nous par téléphone pour les demandes urgentes.",
   },
 ];
 
 export default function Contact() {
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    eventType: "",
-    eventDate: "",
-    budget: "",
-    message: "",
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    toast({
-      title: "Message envoyé !",
-      description: "Nous vous répondrons dans les plus brefs délais.",
-    });
-
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      company: "",
-      eventType: "",
-      eventDate: "",
-      budget: "",
-      message: "",
-    });
-    setIsSubmitting(false);
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
   return (
     <Layout>
       {/* Hero */}
@@ -99,7 +48,7 @@ export default function Contact() {
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-6xl font-display font-bold text-card-foreground mb-6"
             >
-              Parlons de votre <span className="text-gradient-gold">projet</span>
+              Demandez votre <span className="text-gradient-gold">devis gratuit</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -107,8 +56,8 @@ export default function Contact() {
               transition={{ delay: 0.2 }}
               className="text-xl text-muted-foreground"
             >
-              Notre équipe est à votre disposition pour étudier votre projet 
-              et vous proposer une solution sur mesure.
+              Remplissez notre formulaire en quelques étapes et recevez 
+              une proposition personnalisée sous 24h.
             </motion.p>
           </div>
         </div>
@@ -190,7 +139,7 @@ export default function Contact() {
                     <h3 className="font-semibold text-card-foreground mb-1">Horaires</h3>
                     <p className="text-muted-foreground text-sm">
                       Lundi - Vendredi : 9h - 18h<br />
-                      Disponibilité 24/7 pour les événements
+                      Disponibilité 24/7 sur événement
                     </p>
                   </div>
                 </div>
@@ -227,185 +176,8 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Map Placeholder */}
-              <div className="aspect-video bg-card border border-border rounded-lg overflow-hidden">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2630.7!2d2.6!3d48.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDQ4JzAwLjAiTiAywrAzNicwMC4wIkU!5e0!3m2!1sfr!2sfr!4v1234567890"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Localisation BA Attitude"
-                />
-              </div>
-            </motion.div>
-
-            {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="lg:col-span-2"
-            >
-              <div className="bg-card border border-border rounded-lg p-8 lg:p-12">
-                <h2 className="text-2xl font-display font-bold text-card-foreground mb-2">
-                  Demande de devis
-                </h2>
-                <p className="text-muted-foreground mb-8">
-                  Remplissez le formulaire ci-dessous et nous vous répondrons dans les 24h.
-                </p>
-
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Nom complet *</Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        placeholder="Votre nom"
-                        className="bg-muted border-border focus:border-primary"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email *</Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        placeholder="votre@email.com"
-                        className="bg-muted border-border focus:border-primary"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Téléphone</Label>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="06 00 00 00 00"
-                        className="bg-muted border-border focus:border-primary"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="company">Société / Agence</Label>
-                      <Input
-                        id="company"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleChange}
-                        placeholder="Nom de votre société"
-                        className="bg-muted border-border focus:border-primary"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="eventType">Type d'événement *</Label>
-                      <select
-                        id="eventType"
-                        name="eventType"
-                        value={formData.eventType}
-                        onChange={handleChange}
-                        required
-                        className="flex h-10 w-full rounded-md border border-border bg-muted px-3 py-2 text-sm text-card-foreground focus:border-primary focus:outline-none"
-                      >
-                        <option value="">Sélectionnez...</option>
-                        <option value="gala">Gala / Soirée</option>
-                        <option value="corporate">Événement corporate</option>
-                        <option value="lancement">Lancement produit</option>
-                        <option value="seminaire">Séminaire / Convention</option>
-                        <option value="mariage">Mariage</option>
-                        <option value="autre">Autre</option>
-                      </select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="eventDate">Date prévue</Label>
-                      <Input
-                        id="eventDate"
-                        name="eventDate"
-                        type="date"
-                        value={formData.eventDate}
-                        onChange={handleChange}
-                        className="bg-muted border-border focus:border-primary"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="budget">Budget estimé</Label>
-                    <select
-                      id="budget"
-                      name="budget"
-                      value={formData.budget}
-                      onChange={handleChange}
-                      className="flex h-10 w-full rounded-md border border-border bg-muted px-3 py-2 text-sm text-card-foreground focus:border-primary focus:outline-none"
-                    >
-                      <option value="">Sélectionnez...</option>
-                      <option value="5000-10000">5 000 € - 10 000 €</option>
-                      <option value="10000-25000">10 000 € - 25 000 €</option>
-                      <option value="25000-50000">25 000 € - 50 000 €</option>
-                      <option value="50000-100000">50 000 € - 100 000 €</option>
-                      <option value="100000+">+ 100 000 €</option>
-                    </select>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Décrivez votre projet *</Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      placeholder="Décrivez votre événement : lieu, nombre d'invités, thématique souhaitée, contraintes particulières..."
-                      rows={6}
-                      className="bg-muted border-border focus:border-primary resize-none"
-                    />
-                  </div>
-
-                  <div className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <p>
-                      En soumettant ce formulaire, vous acceptez que vos données soient utilisées 
-                      pour vous recontacter dans le cadre de votre demande.
-                    </p>
-                  </div>
-
-                  <Button
-                    type="submit"
-                    variant="gold"
-                    size="lg"
-                    disabled={isSubmitting}
-                    className="w-full md:w-auto"
-                  >
-                    {isSubmitting ? (
-                      "Envoi en cours..."
-                    ) : (
-                      <>
-                        Envoyer ma demande
-                        <Send className="w-5 h-5 ml-2" />
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </div>
-
               {/* FAQ */}
-              <div className="mt-8">
+              <div>
                 <h3 className="text-xl font-display font-bold text-card-foreground mb-4">
                   Questions fréquentes
                 </h3>
@@ -416,10 +188,10 @@ export default function Contact() {
                       value={`item-${index}`}
                       className="bg-card border border-border rounded-lg px-4 data-[state=open]:border-primary/50"
                     >
-                      <AccordionTrigger className="text-left text-card-foreground hover:text-primary font-medium py-4 text-sm hover:no-underline">
+                      <AccordionTrigger className="text-left text-sm font-semibold text-card-foreground hover:text-primary hover:no-underline py-3">
                         {faq.question}
                       </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground pb-4 text-sm leading-relaxed">
+                      <AccordionContent className="text-muted-foreground text-sm pb-3">
                         {faq.answer}
                       </AccordionContent>
                     </AccordionItem>
@@ -427,8 +199,32 @@ export default function Contact() {
                 </Accordion>
               </div>
             </motion.div>
+
+            {/* Multi-Step Quote Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="lg:col-span-2"
+            >
+              <MultiStepQuoteForm />
+            </motion.div>
           </div>
         </div>
+      </section>
+
+      {/* Map */}
+      <section className="h-[400px] relative">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2630.7!2d2.6!3d48.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDQ4JzAwLjAiTiAywrAzNicwMC4wIkU!5e0!3m2!1sfr!2sfr!4v1234567890"
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Localisation BA Attitude"
+        />
       </section>
     </Layout>
   );
