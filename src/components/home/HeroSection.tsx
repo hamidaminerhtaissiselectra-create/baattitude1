@@ -1,14 +1,29 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-event.jpg";
+import { useRef } from "react";
 
 export function HeroSection() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0">
+    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image with Parallax */}
+      <motion.div 
+        style={{ y: backgroundY, scale }}
+        className="absolute inset-0"
+      >
         <img
           src={heroImage}
           alt="Décoration événementielle luxueuse"
@@ -16,14 +31,31 @@ export function HeroSection() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/60 to-transparent" />
-      </div>
+      </motion.div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      {/* Animated Decorative Elements */}
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.2, 1],
+          opacity: [0.1, 0.2, 0.1]
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" 
+      />
+      <motion.div 
+        animate={{ 
+          scale: [1.2, 1, 1.2],
+          opacity: [0.05, 0.15, 0.05]
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" 
+      />
 
-      {/* Content */}
-      <div className="container mx-auto px-4 relative z-10 pt-24">
+      {/* Content with Parallax */}
+      <motion.div 
+        style={{ y: textY, opacity }}
+        className="container mx-auto px-4 relative z-10 pt-24"
+      >
         <div className="max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -42,7 +74,13 @@ export function HeroSection() {
             className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-6"
           >
             <span className="text-card-foreground">Créateurs d'</span>
-            <span className="text-gradient-gold">expériences</span>
+            <motion.span 
+              className="text-gradient-gold inline-block"
+              animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+            >
+              expériences
+            </motion.span>
             <br />
             <span className="text-card-foreground">inoubliables</span>
           </motion.h1>
@@ -63,21 +101,21 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4"
           >
-            <Button variant="hero" asChild>
+            <Button variant="hero" asChild className="group">
               <Link to="/contact">
                 Demander un Devis
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
-            <Button variant="hero-outline" asChild>
+            <Button variant="hero-outline" asChild className="group">
               <Link to="/realisations">
-                <Play className="w-5 h-5 mr-2" />
+                <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
                 Voir nos Réalisations
               </Link>
             </Button>
           </motion.div>
 
-          {/* Stats */}
+          {/* Stats with stagger animation */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -89,18 +127,25 @@ export function HeroSection() {
               { value: "80%", label: "Clients agences" },
               { value: "500+", label: "Événements" },
             ].map((stat, index) => (
-              <div key={index} className="text-center">
+              <motion.div 
+                key={index} 
+                className="text-center"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1 + index * 0.1, duration: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+              >
                 <div className="text-3xl md:text-4xl font-display font-bold text-primary">
                   {stat.value}
                 </div>
                 <div className="text-xs text-muted-foreground mt-1">
                   {stat.label}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Scroll Indicator */}
       <motion.div
@@ -114,7 +159,11 @@ export function HeroSection() {
           transition={{ duration: 1.5, repeat: Infinity }}
           className="w-6 h-10 rounded-full border-2 border-primary/50 flex items-start justify-center p-2"
         >
-          <div className="w-1 h-2 bg-primary rounded-full" />
+          <motion.div 
+            animate={{ height: ["8px", "16px", "8px"] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="w-1 bg-primary rounded-full" 
+          />
         </motion.div>
       </motion.div>
     </section>
