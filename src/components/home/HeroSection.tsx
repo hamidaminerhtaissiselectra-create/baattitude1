@@ -26,7 +26,7 @@ export function HeroSection() {
       >
         <img
           src={heroImage}
-          alt="Décoration événementielle luxueuse"
+          alt="Prestations techniques événementielles - BA ATTITUDE"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background" />
@@ -63,7 +63,7 @@ export function HeroSection() {
             transition={{ duration: 0.8 }}
           >
             <span className="inline-block px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-primary text-sm font-medium mb-8">
-              Décoration Événementielle Haut de Gamme
+              Prestations Techniques & Logistiques Événementielles
             </span>
           </motion.div>
 
@@ -73,16 +73,16 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-6"
           >
-            <span className="text-card-foreground">Créateurs d'</span>
+            <span className="text-card-foreground">Votre partenaire </span>
             <motion.span 
               className="text-gradient-gold inline-block"
               animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
               transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
             >
-              expériences
+              salons & événements
             </motion.span>
             <br />
-            <span className="text-card-foreground">inoubliables</span>
+            <span className="text-card-foreground">B2B</span>
           </motion.h1>
 
           <motion.p
@@ -91,8 +91,8 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed"
           >
-            Du brief initial au démontage, nous concevons et réalisons des décors 
-            événementiels d'exception pour les plus grandes marques et agences.
+            Spécialiste des salons professionnels, foires et expositions. 
+            Montage, démontage, logistique et coordination terrain en France et à l'international.
           </motion.p>
 
           <motion.div
@@ -110,7 +110,7 @@ export function HeroSection() {
             <Button variant="hero-outline" asChild className="group">
               <Link to="/realisations">
                 <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-                Voir nos Réalisations
+                Nos Réalisations
               </Link>
             </Button>
           </motion.div>
@@ -124,8 +124,8 @@ export function HeroSection() {
           >
             {[
               { value: "15+", label: "Ans d'expérience" },
-              { value: "80%", label: "Clients agences" },
-              { value: "500+", label: "Événements" },
+              { value: "12", label: "Pays couverts" },
+              { value: "500+", label: "Projets réalisés" },
             ].map((stat, index) => (
               <motion.div 
                 key={index} 

@@ -1,8 +1,9 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, ArrowRight, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRef } from "react";
 import serviceDecoration from "@/assets/service-decoration.jpg";
 import serviceScenography from "@/assets/service-scenography.jpg";
 import serviceLocation from "@/assets/service-location.jpg";
@@ -13,73 +14,80 @@ import { FAQSection } from "@/components/home/FAQSection";
 
 const services = [
   {
-    id: "decoration-ephemere",
-    title: "Décoration Éphémère",
-    description: "Conception et installation de décors temporaires pour événements. Nous créons des ambiances uniques qui marquent les esprits.",
+    id: "salons-professionnels",
+    title: "Salons Professionnels",
+    description: "Expertise complète pour vos participations aux salons, foires et expositions. Montage, démontage et coordination sur site.",
     image: serviceDecoration,
-    features: ["Décors sur mesure", "Installation rapide", "Démontage inclus"],
+    features: ["Montage de stands", "Coordination terrain", "Gestion logistique"],
   },
   {
-    id: "scenographie",
-    title: "Scénographie",
-    description: "Création de l'espace et de l'ambiance visuelle. Design d'événement et conception d'espaces immersifs.",
+    id: "support-technique",
+    title: "Support Technique Événementiel",
+    description: "Accompagnement technique complet pour tous types d'événements B2B : congrès, conventions, forums professionnels.",
     image: serviceScenography,
-    features: ["Conception 3D", "Design spatial", "Ambiances lumineuses"],
+    features: ["Assistance technique", "Coordination équipes", "Support 24/7"],
   },
   {
-    id: "location-materiel",
-    title: "Location de Matériel",
-    description: "Mise à disposition d'un catalogue de mobilier, éclairage et accessoires haut de gamme pour sublimer vos événements.",
+    id: "montage-demontage",
+    title: "Montage & Démontage",
+    description: "Équipes expertes pour le montage et démontage de stands, décors et installations événementielles dans les délais impartis.",
     image: serviceLocation,
-    features: ["Mobilier de luxe", "Éclairage professionnel", "Accessoires déco"],
+    features: ["Équipes qualifiées", "Respect des délais", "Normes de sécurité"],
   },
   {
-    id: "evenements-corporatifs",
-    title: "Événements Corporatifs",
-    description: "Gestion complète de la décoration pour séminaires, lancements de produits et galas d'entreprise.",
-    image: serviceCorporate,
-    features: ["Séminaires", "Lancements produits", "Galas"],
-  },
-  {
-    id: "logistique",
-    title: "Logistique",
-    description: "Expertise en transport, montage, installation et démontage rapide et efficace pour garantir le succès de votre événement.",
+    id: "logistique-coordination",
+    title: "Logistique & Coordination",
+    description: "Gestion complète de la logistique événementielle : transport, stockage, manutention et coordination terrain.",
     image: serviceLogistique,
-    features: ["Transport sécurisé", "Montage expert", "Démontage rapide"],
+    features: ["Transport sécurisé", "Stockage", "Manutention"],
   },
   {
-    id: "support-international",
-    title: "Support International",
-    description: "Capacité à gérer des projets de décoration événementielle à l'étranger avec la même qualité d'exécution.",
+    id: "scenographie-stands",
+    title: "Scénographie de Stands",
+    description: "Conception et réalisation de décors et scénographies sur mesure pour valoriser votre présence sur les salons.",
+    image: serviceCorporate,
+    features: ["Design sur mesure", "Fabrication", "Installation"],
+  },
+  {
+    id: "international",
+    title: "Prestations Internationales",
+    description: "Déploiement de nos services à l'international avec la même qualité d'exécution. Coordination multi-pays et expertise export.",
     image: serviceInternational,
-    features: ["Projets internationaux", "Coordination globale", "Expertise export"],
+    features: ["12+ pays couverts", "Coordination globale", "Expertise export"],
   },
 ];
 
 const advantages = [
   "Un interlocuteur unique du brief au démontage",
-  "Visualisation 3D avant fabrication",
-  "Ateliers intégrés de 800m²",
-  "Disponibilité 24/7 pendant vos événements",
-  "Réseau de partenaires internationaux",
-  "15 ans d'expérience dans le luxe",
+  "Réactivité et flexibilité 24/7",
+  "Équipes formées aux normes de sécurité",
+  "Présence France et international",
+  "15 ans d'expérience en événementiel B2B",
+  "Références prestigieuses (G20, grands salons)",
 ];
 
 export default function Services() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-32 pb-20 bg-background relative overflow-hidden">
+      <section ref={heroRef} className="pt-32 pb-20 bg-background relative overflow-hidden">
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
         
-        <div className="container mx-auto px-4 relative">
+        <motion.div style={{ opacity }} className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="inline-block text-sm font-medium text-primary uppercase tracking-widest mb-4"
             >
-              Nos Expertises
+              Nos Services
             </motion.span>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -87,7 +95,7 @@ export default function Services() {
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-6xl font-display font-bold text-card-foreground mb-6"
             >
-              Des services <span className="text-gradient-gold">complets</span> pour vos événements
+              Prestations techniques <span className="text-gradient-gold">événementielles</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -95,11 +103,11 @@ export default function Services() {
               transition={{ delay: 0.2 }}
               className="text-xl text-muted-foreground"
             >
-              Du brief initial au démontage, nous vous accompagnons à chaque étape 
-              pour créer des événements d'exception.
+              Spécialiste des salons professionnels, foires et événements B2B.
+              Du montage au démontage, nous assurons la coordination terrain de vos projets.
             </motion.p>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Advantages */}
@@ -139,7 +147,6 @@ export default function Services() {
                   to={`/services/${service.id}`}
                   className="group block h-full bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all duration-500"
                 >
-                  {/* Image */}
                   <div className="aspect-[16/10] overflow-hidden relative">
                     <img
                       src={service.image}
@@ -149,7 +156,6 @@ export default function Services() {
                     <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
                   </div>
 
-                  {/* Content */}
                   <div className="p-6">
                     <div className="flex items-start justify-between gap-4 mb-4">
                       <h3 className="text-xl font-display font-semibold text-card-foreground group-hover:text-primary transition-colors">
@@ -192,7 +198,7 @@ export default function Services() {
               viewport={{ once: true }}
               className="text-sm font-medium text-primary uppercase tracking-widest mb-4 block"
             >
-              Notre Processus
+              Notre Méthodologie
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -201,16 +207,16 @@ export default function Services() {
               transition={{ delay: 0.1 }}
               className="text-3xl md:text-5xl font-display font-bold text-card-foreground"
             >
-              Comment nous <span className="text-gradient-gold">travaillons</span>
+              Comment nous <span className="text-gradient-gold">intervenons</span>
             </motion.h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { step: "01", title: "Brief", description: "Analyse approfondie de vos besoins, contraintes et objectifs. Visite du lieu si nécessaire." },
-              { step: "02", title: "Conception", description: "Design créatif avec visualisation 3D et planches tendances pour validation." },
-              { step: "03", title: "Installation", description: "Montage professionnel par nos équipes formées. Coordination sur site jusqu'à la livraison." },
-              { step: "04", title: "Démontage", description: "Repli soigné après l'événement. Nettoyage et remise en état des lieux." },
+              { step: "01", title: "Étude & Devis", description: "Analyse de votre cahier des charges, visite technique du site si nécessaire, établissement d'un devis détaillé." },
+              { step: "02", title: "Planification", description: "Définition du planning d'intervention, coordination avec les organisateurs et autres prestataires." },
+              { step: "03", title: "Installation", description: "Montage par nos équipes qualifiées dans le respect des délais et des normes de sécurité." },
+              { step: "04", title: "Démontage", description: "Repli soigné après l'événement, évacuation du matériel et remise en état des lieux." },
             ].map((item, index) => (
               <motion.div
                 key={item.step}
@@ -238,6 +244,40 @@ export default function Services() {
         </div>
       </section>
 
+      {/* Zones d'intervention */}
+      <section className="py-20 bg-card border-y border-border">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl font-display font-bold text-card-foreground mb-4"
+            >
+              Zones d'<span className="text-gradient-gold">intervention</span>
+            </motion.h2>
+            <p className="text-muted-foreground">
+              Nous intervenons sur l'ensemble du territoire français et à l'international.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 text-center">
+            {["Paris & Île-de-France", "Lyon", "Marseille", "Bordeaux", "Nice", "Strasbourg", "Lille", "Nantes", "Toulouse", "Monaco", "Genève", "Bruxelles"].map((city, index) => (
+              <motion.div
+                key={city}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                className="px-4 py-3 bg-muted rounded-lg border border-border hover:border-primary/50 transition-colors"
+              >
+                <span className="text-sm font-medium text-card-foreground">{city}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <FAQSection />
 
@@ -250,7 +290,7 @@ export default function Services() {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-display font-bold text-card-foreground mb-4"
           >
-            Un projet en tête ?
+            Un salon ou événement à préparer ?
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -259,7 +299,7 @@ export default function Services() {
             transition={{ delay: 0.1 }}
             className="text-muted-foreground mb-8 max-w-2xl mx-auto"
           >
-            Contactez-nous pour discuter de vos besoins et obtenir un devis personnalisé.
+            Contactez-nous pour une étude personnalisée et un devis adapté à vos besoins.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -269,7 +309,7 @@ export default function Services() {
           >
             <Button variant="gold" size="lg" asChild>
               <Link to="/contact">
-                Demander un devis
+                Demander un devis gratuit
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
