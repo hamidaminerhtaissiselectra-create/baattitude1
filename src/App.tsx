@@ -9,6 +9,8 @@ import Services from "./pages/Services";
 import ServiceDetail from "./pages/ServiceDetail";
 import Realisations from "./pages/Realisations";
 import RealisationDetail from "./pages/RealisationDetail";
+import International from "./pages/International";
+import ZoneIntervention from "./pages/ZoneIntervention";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
 import BlogArticle from "./pages/BlogArticle";
@@ -30,6 +32,8 @@ const App = () => (
           <Route path="/services/:serviceId" element={<ServiceDetail />} />
           <Route path="/realisations" element={<Realisations />} />
           <Route path="/realisations/:projectId" element={<RealisationDetail />} />
+          <Route path="/international" element={<International />} />
+          <Route path="/zones/:zoneId" element={<ZoneIntervention />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:articleId" element={<BlogArticle />} />
           <Route path="/contact" element={<Contact />} />
