@@ -62,14 +62,14 @@ export function ParallaxImage({ src, alt, className = "", speed = 0.3 }: Paralla
   );
 }
 
-interface FadeInViewProps {
+interface FadeInSectionProps {
   children: ReactNode;
   className?: string;
   delay?: number;
   direction?: "up" | "down" | "left" | "right";
 }
 
-export function FadeInView({ 
+export function FadeInSection({
   children, 
   className = "", 
   delay = 0,

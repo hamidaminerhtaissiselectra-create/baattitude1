@@ -1,21 +1,31 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
+const services = [
+  { name: "Salons Professionnels", href: "/services/salons-professionnels" },
+  { name: "Support Technique", href: "/services/support-technique" },
+  { name: "Montage & Démontage", href: "/services/montage-demontage" },
+  { name: "Logistique Terrain", href: "/services/logistique-terrain" },
+];
 
 const navigation = [
   { name: "Accueil", href: "/" },
   { name: "À Propos", href: "/a-propos" },
-  { name: "Services", href: "/services" },
+  { name: "Services", href: "/services", hasDropdown: true },
   { name: "Réalisations", href: "/realisations" },
+  { name: "International", href: "/international" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ];
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -28,6 +38,7 @@ export function Header() {
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setIsServicesOpen(false);
   }, [location]);
 
   return (
@@ -58,31 +69,67 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             {navigation.map((item, index) => (
               <motion.div
                 key={item.name}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
+                className="relative"
+                onMouseEnter={() => item.hasDropdown && setIsServicesOpen(true)}
+                onMouseLeave={() => item.hasDropdown && setIsServicesOpen(false)}
               >
                 <Link
                   to={item.href}
                   className={cn(
-                    "relative text-sm font-medium tracking-wide transition-colors duration-300 py-2",
-                    location.pathname === item.href
+                    "relative text-sm font-medium tracking-wide transition-colors duration-300 py-2 flex items-center gap-1",
+                    location.pathname === item.href || (item.hasDropdown && location.pathname.startsWith("/services"))
                       ? "text-primary"
                       : "text-card-foreground hover:text-primary"
                   )}
                 >
                   {item.name}
-                  {location.pathname === item.href && (
+                  {item.hasDropdown && <ChevronDown className="w-3 h-3" />}
+                  {(location.pathname === item.href || (item.hasDropdown && location.pathname.startsWith("/services"))) && (
                     <motion.div
                       layoutId="activeNav"
                       className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-gold"
                     />
                   )}
                 </Link>
+
+                {/* Services Dropdown */}
+                {item.hasDropdown && (
+                  <AnimatePresence>
+                    {isServicesOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="absolute top-full left-0 mt-2 w-64 bg-card border border-border rounded-lg shadow-xl overflow-hidden"
+                      >
+                        {services.map((service) => (
+                          <Link
+                            key={service.href}
+                            to={service.href}
+                            className="block px-4 py-3 text-sm text-card-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+                          >
+                            {service.name}
+                          </Link>
+                        ))}
+                        <div className="border-t border-border">
+                          <Link
+                            to="/services"
+                            className="block px-4 py-3 text-sm text-primary font-medium hover:bg-primary/10 transition-colors"
+                          >
+                            Tous nos services →
+                          </Link>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
               </motion.div>
             ))}
           </nav>
@@ -126,7 +173,7 @@ export function Header() {
             className="lg:hidden bg-background/98 backdrop-blur-lg border-t border-border"
           >
             <div className="container mx-auto px-4 py-6">
-              <nav className="flex flex-col gap-4">
+              <nav className="flex flex-col gap-2">
                 {navigation.map((item, index) => (
                   <motion.div
                     key={item.name}
@@ -145,6 +192,19 @@ export function Header() {
                     >
                       {item.name}
                     </Link>
+                    {item.hasDropdown && (
+                      <div className="pl-4 py-2 space-y-2">
+                        {services.map((service) => (
+                          <Link
+                            key={service.href}
+                            to={service.href}
+                            className="block py-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                          >
+                            {service.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </motion.div>
                 ))}
                 <motion.div

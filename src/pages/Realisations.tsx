@@ -2,106 +2,114 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ParallaxSection, FadeInSection } from "@/components/animations/ParallaxSection";
+import heroImage from "@/assets/hero-event.jpg";
 import serviceDecoration from "@/assets/service-decoration.jpg";
 import serviceScenography from "@/assets/service-scenography.jpg";
 import serviceLocation from "@/assets/service-location.jpg";
 import serviceCorporate from "@/assets/service-corporate.jpg";
 import serviceLogistique from "@/assets/service-logistique.jpg";
 import serviceInternational from "@/assets/service-international.jpg";
-import heroImage from "@/assets/hero-event.jpg";
 import aboutTeam from "@/assets/about-team.jpg";
-import { FeaturedProject } from "@/components/realisations/FeaturedProject";
 
-const categories = ["Tous", "Luxe", "Corporate", "Événementiel"];
+const categories = ["Tous", "Salons", "Corporate", "International"];
 
 const projects = [
   {
     id: 1,
-    title: "Gala Annuel DIOR",
-    client: "DIOR",
-    category: "Luxe",
+    title: "Maison & Objet Paris",
+    client: "Agence DECO+",
+    category: "Salons",
     image: heroImage,
-    description: "Décoration complète pour le gala annuel de la maison DIOR",
-    year: "2023",
-    location: "Paris, France",
+    description: "Montage et coordination de 15 stands pour l'agence DECO+ sur le salon Maison & Objet",
+    year: "2024",
+    location: "Paris Nord Villepinte",
+    services: ["Montage", "Coordination", "Logistique"],
   },
   {
     id: 2,
-    title: "Lancement Produit BVLGARI",
-    client: "BVLGARI",
-    category: "Luxe",
+    title: "SIAL Paris",
+    client: "Groupe Alimentaire",
+    category: "Salons",
     image: serviceDecoration,
-    description: "Scénographie immersive pour le lancement d'une nouvelle collection",
-    year: "2023",
-    location: "Rome, Italie",
+    description: "Installation complète d'un stand de 200m² avec espace dégustation",
+    year: "2024",
+    location: "Paris Nord Villepinte",
+    services: ["Montage", "Technique", "Démontage"],
   },
   {
     id: 3,
-    title: "Convention Internationale GOOGLE",
-    client: "GOOGLE",
+    title: "Convention GOOGLE",
+    client: "GOOGLE France",
     category: "Corporate",
     image: serviceScenography,
-    description: "Aménagement et décoration de l'espace convention",
-    year: "2023",
-    location: "Dublin, Irlande",
+    description: "Support technique et logistique pour la convention annuelle",
+    year: "2024",
+    location: "Paris La Défense",
+    services: ["Support technique", "Coordination"],
   },
   {
     id: 4,
-    title: "Dîner Fashion Week",
-    client: "FENDI",
-    category: "Luxe",
+    title: "Sirha Lyon",
+    client: "Fédération Restauration",
+    category: "Salons",
     image: serviceCorporate,
-    description: "Décoration du dîner VIP pendant la Fashion Week Paris",
-    year: "2022",
-    location: "Paris, France",
+    description: "Gestion de 8 espaces d'exposition sur le salon international de la restauration",
+    year: "2023",
+    location: "Eurexpo Lyon",
+    services: ["Montage", "Logistique", "Démontage"],
   },
   {
     id: 5,
-    title: "Séminaire ARAMCO",
-    client: "ARAMCO",
-    category: "Corporate",
+    title: "Arabian Travel Market",
+    client: "Office Tourisme France",
+    category: "International",
     image: serviceInternational,
-    description: "Organisation complète du séminaire international",
-    year: "2022",
-    location: "Riyad, Arabie Saoudite",
+    description: "Coordination du pavillon France sur le salon ATM à Dubaï",
+    year: "2023",
+    location: "Dubaï, UAE",
+    services: ["International", "Coordination", "Logistique"],
   },
   {
     id: 6,
-    title: "Soirée de Gala CHAUMET",
-    client: "CHAUMET Paris",
-    category: "Luxe",
+    title: "Première Vision",
+    client: "Maison de Mode",
+    category: "Salons",
     image: serviceLocation,
-    description: "Mise en scène luxueuse pour la soirée anniversaire",
-    year: "2022",
-    location: "Paris, France",
+    description: "Installation et habillage du stand sur le salon du textile",
+    year: "2023",
+    location: "Paris Nord Villepinte",
+    services: ["Montage", "Habillage", "Démontage"],
   },
   {
     id: 7,
-    title: "Événement G20",
-    client: "G20",
-    category: "Événementiel",
+    title: "ITB Berlin",
+    client: "Cluster Tourisme",
+    category: "International",
     image: serviceLogistique,
-    description: "Logistique et décoration pour l'événement officiel",
-    year: "2021",
-    location: "Paris, France",
+    description: "Support logistique pour le salon du tourisme à Berlin",
+    year: "2023",
+    location: "Berlin, Allemagne",
+    services: ["International", "Transport", "Support"],
   },
   {
     id: 8,
-    title: "Expérience DisneyLand",
-    client: "DisneyLand Paris",
-    category: "Événementiel",
+    title: "Global Industrie",
+    client: "ETI Industrielle",
+    category: "Salons",
     image: aboutTeam,
-    description: "Décoration thématique pour un événement privé",
-    year: "2021",
-    location: "Marne-la-Vallée, France",
+    description: "Montage d'un stand technique avec démonstrations machines",
+    year: "2023",
+    location: "Eurexpo Lyon",
+    services: ["Montage technique", "Coordination", "Sécurité"],
   },
 ];
 
 const allClients = [
-  "DIOR", "BVLGARI", "CHAUMET", "FENDI", "GIVENCHY", "GOOGLE", 
-  "ARAMCO", "L'ORÉAL", "CARTIER", "CHANEL", "HERMÈS", "LOUIS VUITTON"
+  "LVMH", "L'Oréal", "Accor", "Air France", "Renault", 
+  "Orange", "BNP Paribas", "Carrefour", "Danone", "Total"
 ];
 
 export default function Realisations() {
@@ -124,7 +132,7 @@ export default function Realisations() {
               animate={{ opacity: 1, y: 0 }}
               className="inline-block text-sm font-medium text-primary uppercase tracking-widest mb-4"
             >
-              Portfolio
+              Nos Références
             </motion.span>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -140,8 +148,8 @@ export default function Realisations() {
               transition={{ delay: 0.2 }}
               className="text-xl text-muted-foreground"
             >
-              Découvrez une sélection de nos projets les plus emblématiques 
-              réalisés pour des marques prestigieuses.
+              Découvrez une sélection de nos interventions sur les salons professionnels 
+              et événements B2B en France et à l'international.
             </motion.p>
           </div>
         </div>
@@ -153,9 +161,9 @@ export default function Realisations() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { value: "500+", label: "Projets réalisés" },
-              { value: "12", label: "Pays d'intervention" },
-              { value: "50+", label: "Clients prestige" },
-              { value: "15", label: "Années d'expertise" },
+              { value: "30+", label: "Pays d'intervention" },
+              { value: "100+", label: "Clients actifs" },
+              { value: "15", label: "Années d'expérience" },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -172,11 +180,57 @@ export default function Realisations() {
         </div>
       </section>
 
-      {/* Featured Project */}
-      <FeaturedProject />
+      {/* Featured */}
+      <ParallaxSection className="py-24 bg-muted">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <FadeInSection>
+              <div className="relative">
+                <img
+                  src={heroImage}
+                  alt="Projet en vedette"
+                  className="w-full rounded-lg"
+                />
+                <div className="absolute top-4 left-4 px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-full">
+                  Projet en vedette
+                </div>
+              </div>
+            </FadeInSection>
+
+            <FadeInSection delay={0.2}>
+              <span className="text-sm font-medium text-primary uppercase tracking-widest mb-4 block">
+                Maison & Objet 2024
+              </span>
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-card-foreground mb-6">
+                Coordination de 15 stands pour l'agence DECO+
+              </h2>
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                BA Attitude a assuré la coordination complète de 15 stands pour l'agence DECO+ 
+                sur l'édition 2024 de Maison & Objet. Un défi logistique relevé avec succès grâce 
+                à notre expertise et notre équipe dédiée.
+              </p>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {["Montage", "Coordination", "Logistique", "Démontage"].map((service) => (
+                  <span key={service} className="px-3 py-1 bg-card border border-border text-muted-foreground text-sm rounded-full">
+                    {service}
+                  </span>
+                ))}
+              </div>
+              <div className="bg-card border border-border rounded-lg p-6">
+                <Quote className="w-8 h-8 text-primary/20 mb-4" />
+                <p className="text-card-foreground italic mb-4">
+                  "Une coordination parfaite malgré la complexité du projet. BA Attitude a su gérer 
+                  les imprévus avec professionnalisme."
+                </p>
+                <p className="text-sm text-muted-foreground">— Responsable Projets, Agence DECO+</p>
+              </div>
+            </FadeInSection>
+          </div>
+        </div>
+      </ParallaxSection>
 
       {/* Filters */}
-      <section className="py-8 bg-muted border-y border-border sticky top-20 z-30">
+      <section className="py-8 bg-background border-y border-border sticky top-20 z-30">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center gap-4 flex-wrap">
             {categories.map((category) => (
@@ -249,6 +303,13 @@ export default function Realisations() {
                           <ArrowUpRight className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
                         </div>
                       </div>
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {project.services.slice(0, 3).map((service) => (
+                          <span key={service} className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded">
+                            {service}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </Link>
                 </motion.div>
@@ -261,72 +322,41 @@ export default function Realisations() {
       {/* Clients */}
       <section className="py-20 bg-muted">
         <div className="container mx-auto px-4 text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4 block"
-          >
-            Ils nous ont fait confiance
-          </motion.span>
-          <motion.h3
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-2xl font-display font-bold text-card-foreground mb-8"
-          >
-            Des marques <span className="text-gradient-gold">prestigieuses</span>
-          </motion.h3>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-6 md:gap-10 text-xl md:text-2xl font-display text-muted-foreground/50"
-          >
-            {allClients.map((client) => (
-              <span key={client} className="hover:text-primary transition-colors cursor-default">
-                {client}
-              </span>
-            ))}
-          </motion.div>
+          <FadeInSection>
+            <span className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-4 block">
+              Ils nous font confiance
+            </span>
+            <h3 className="text-2xl font-display font-bold text-card-foreground mb-8">
+              Des entreprises <span className="text-gradient-gold">de référence</span>
+            </h3>
+            <div className="flex flex-wrap justify-center gap-6 md:gap-10 text-xl md:text-2xl font-display text-muted-foreground/50">
+              {allClients.map((client) => (
+                <span key={client} className="hover:text-primary transition-colors cursor-default">
+                  {client}
+                </span>
+              ))}
+            </div>
+          </FadeInSection>
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-display font-bold text-card-foreground mb-4"
-          >
-            Votre projet sera le prochain ?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-muted-foreground mb-8 max-w-2xl mx-auto"
-          >
-            Discutons de votre événement et créons ensemble une expérience inoubliable.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
+          <FadeInSection>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-card-foreground mb-4">
+              Votre projet sera le prochain ?
+            </h2>
+            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Contactez-nous pour discuter de votre prochain salon ou événement professionnel.
+            </p>
             <Button variant="gold" size="lg" asChild>
               <Link to="/contact">
                 Démarrer un projet
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
-          </motion.div>
+          </FadeInSection>
         </div>
       </section>
     </Layout>

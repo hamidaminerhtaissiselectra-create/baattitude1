@@ -1,34 +1,57 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
-import { ArrowRight, Award, Users, Heart, Shield, Quote } from "lucide-react";
+import { ArrowRight, Award, Users, Heart, Shield, Quote, CheckCircle, Building2, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ParallaxSection, FadeInSection } from "@/components/animations/ParallaxSection";
 import aboutTeam from "@/assets/about-team.jpg";
-import { TeamSection } from "@/components/about/TeamSection";
-import { TimelineSection } from "@/components/about/TimelineSection";
-import { CertificationsSection } from "@/components/about/CertificationsSection";
 
 const values = [
   {
     icon: Award,
     title: "Excellence",
-    description: "Chaque projet est traité avec le plus haut niveau d'exigence et d'attention aux détails.",
+    description: "Chaque projet est traité avec le plus haut niveau d'exigence. Notre réputation se construit sur la qualité de nos interventions.",
   },
   {
     icon: Users,
     title: "Collaboration",
-    description: "Votre participation est essentielle : c'est à travers elle que se construit notre confiance réciproque.",
+    description: "Nous travaillons main dans la main avec vos équipes et vos prestataires pour garantir une coordination parfaite.",
   },
   {
     icon: Heart,
     title: "Passion",
-    description: "Notre passion pour la décoration événementielle se reflète dans chaque création.",
+    description: "L'événementiel est notre métier et notre passion. Nous mettons notre énergie au service de votre réussite.",
   },
   {
     icon: Shield,
-    title: "Engagement",
-    description: "Aucune mauvaise surprise : chaque détail est analysé, proposé et mis en œuvre avec votre accord.",
+    title: "Fiabilité",
+    description: "Respect des délais, des budgets et des engagements. Vous pouvez compter sur nous en toutes circonstances.",
   },
+];
+
+const expertise = [
+  "Salons professionnels et foires",
+  "Événements B2B et corporate",
+  "Montage et démontage de stands",
+  "Logistique événementielle",
+  "Coordination terrain",
+  "Support technique",
+];
+
+const milestones = [
+  { year: "2008", title: "Création", description: "Fondation de BA Attitude à Paris" },
+  { year: "2012", title: "Expansion", description: "Premiers projets internationaux" },
+  { year: "2016", title: "Croissance", description: "100ème salon professionnel accompagné" },
+  { year: "2020", title: "Résilience", description: "Adaptation et diversification" },
+  { year: "2024", title: "Leadership", description: "Référence du secteur B2B" },
+];
+
+const clients = [
+  "Agences événementielles",
+  "Entreprises B2B",
+  "Organisateurs de salons",
+  "Institutions et fédérations",
+  "Marques internationales",
 ];
 
 export default function About() {
@@ -45,7 +68,7 @@ export default function About() {
               animate={{ opacity: 1, y: 0 }}
               className="inline-block text-sm font-medium text-primary uppercase tracking-widest mb-4"
             >
-              Notre Histoire
+              Notre Entreprise
             </motion.span>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -53,8 +76,8 @@ export default function About() {
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-6xl font-display font-bold text-card-foreground mb-6"
             >
-              Plus de 15 ans au service de l'
-              <span className="text-gradient-gold">excellence</span>
+              Votre partenaire technique pour l'
+              <span className="text-gradient-gold">événementiel B2B</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -62,9 +85,8 @@ export default function About() {
               transition={{ delay: 0.2 }}
               className="text-xl text-muted-foreground leading-relaxed"
             >
-              BA ATTITUDE est spécialiste de la décoration événementielle en France 
-              et à l'étranger. Pour chaque projet, un interlocuteur vous est entièrement 
-              dédié, du brief initial au démontage.
+              Depuis plus de 15 ans, BA Attitude accompagne les entreprises et agences événementielles 
+              sur leurs salons professionnels, foires et événements B2B en France et à l'international.
             </motion.p>
           </div>
         </div>
@@ -74,157 +96,217 @@ export default function About() {
       <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              <div className="aspect-[4/5] rounded-lg overflow-hidden">
-                <img
-                  src={aboutTeam}
-                  alt="L'équipe BA Attitude"
-                  className="w-full h-full object-cover"
-                />
+            <FadeInSection>
+              <div className="relative">
+                <div className="aspect-[4/5] rounded-lg overflow-hidden">
+                  <img
+                    src={aboutTeam}
+                    alt="L'équipe BA Attitude"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-48 h-48 border-2 border-primary rounded-lg -z-10" />
               </div>
-              <div className="absolute -bottom-6 -right-6 w-48 h-48 border-2 border-primary rounded-lg -z-10" />
-            </motion.div>
+            </FadeInSection>
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
+            <FadeInSection delay={0.2}>
               <span className="text-sm font-medium text-primary uppercase tracking-widest mb-4 block">
-                Notre Philosophie
+                Notre Mission
               </span>
               <h2 className="text-3xl md:text-4xl font-display font-bold text-card-foreground mb-6">
-                "Choisis un travail que tu aimes, et tu n'auras pas à travailler un seul jour de ta vie"
+                Simplifier la logistique de vos événements professionnels
               </h2>
               <p className="text-muted-foreground mb-4 leading-relaxed">
-                Cette citation de Confucius résume parfaitement notre état d'esprit. 
-                Notre passion pour la décoration événementielle nous pousse à donner 
-                le meilleur de nous-mêmes sur chaque projet.
+                BA Attitude est née d'un constat simple : les entreprises qui participent à des salons 
+                professionnels ont besoin d'un partenaire technique fiable, réactif et expert.
               </p>
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                Dans notre atelier, nos collaborateurs et nos partenaires mettent en œuvre 
-                tous les moyens de construction, de peinture, de tapisserie, de métallerie, 
-                de logistique pour mener à bien notre mission : vous livrer le meilleur 
-                de leurs savoir-faire.
+                Notre équipe de techniciens, logisticiens et coordinateurs met son savoir-faire 
+                à votre service pour que vous puissiez vous concentrer sur l'essentiel : 
+                votre activité commerciale et vos visiteurs.
               </p>
-              <p className="text-lg text-card-foreground font-medium">
-                Nous voulons que nos réalisations restent gravées dans vos mémoires 
-                et celles de vos clients.
-              </p>
-            </motion.div>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { value: "500+", label: "Projets réalisés" },
+                  { value: "15+", label: "Années d'expérience" },
+                  { value: "30+", label: "Pays d'intervention" },
+                  { value: "80%", label: "Clients agences" },
+                ].map((stat) => (
+                  <div key={stat.label} className="text-center p-4 bg-card rounded-lg border border-border">
+                    <div className="text-2xl font-display font-bold text-primary">{stat.value}</div>
+                    <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </FadeInSection>
           </div>
         </div>
       </section>
 
       {/* Values */}
-      <section className="py-24 bg-background">
+      <ParallaxSection className="py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-sm font-medium text-primary uppercase tracking-widest mb-4 block"
-            >
+          <FadeInSection className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-sm font-medium text-primary uppercase tracking-widest mb-4 block">
               Nos Valeurs
-            </motion.span>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl md:text-5xl font-display font-bold text-card-foreground"
-            >
+            </span>
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-card-foreground">
               Ce qui nous <span className="text-gradient-gold">définit</span>
-            </motion.h2>
-          </div>
+            </h2>
+          </FadeInSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center p-8 bg-card border border-border rounded-lg hover:border-primary/30 transition-colors"
-              >
-                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
-                  <value.icon className="w-8 h-8 text-primary" />
+              <FadeInSection key={value.title} delay={index * 0.1}>
+                <div className="text-center p-8 bg-card border border-border rounded-lg hover:border-primary/30 transition-colors h-full">
+                  <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-primary/10 flex items-center justify-center">
+                    <value.icon className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-display font-semibold text-card-foreground mb-3">
+                    {value.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    {value.description}
+                  </p>
                 </div>
-                <h3 className="text-xl font-display font-semibold text-card-foreground mb-3">
-                  {value.title}
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  {value.description}
-                </p>
-              </motion.div>
+              </FadeInSection>
             ))}
+          </div>
+        </div>
+      </ParallaxSection>
+
+      {/* Expertise */}
+      <section className="py-24 bg-muted">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <FadeInSection>
+              <span className="text-sm font-medium text-primary uppercase tracking-widest mb-4 block">
+                Notre Expertise
+              </span>
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-card-foreground mb-6">
+                Spécialiste des prestations techniques pour <span className="text-gradient-gold">l'événementiel B2B</span>
+              </h2>
+              <p className="text-muted-foreground mb-8 leading-relaxed">
+                Notre cœur de métier : les prestations techniques et logistiques pour les salons professionnels, 
+                foires, expositions et événements B2B. Une expertise pointue qui fait la différence.
+              </p>
+              <ul className="space-y-4">
+                {expertise.map((item, index) => (
+                  <motion.li
+                    key={item}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-center gap-3"
+                  >
+                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="text-card-foreground">{item}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </FadeInSection>
+
+            <FadeInSection delay={0.2}>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="bg-card border border-border rounded-lg p-6">
+                  <Building2 className="w-10 h-10 text-primary mb-4" />
+                  <h3 className="font-display font-semibold text-card-foreground mb-2">France</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Intervention sur tous les grands sites d'exposition français
+                  </p>
+                </div>
+                <div className="bg-card border border-border rounded-lg p-6">
+                  <Globe className="w-10 h-10 text-primary mb-4" />
+                  <h3 className="font-display font-semibold text-card-foreground mb-2">International</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Réseau de partenaires dans plus de 30 pays
+                  </p>
+                </div>
+              </div>
+            </FadeInSection>
           </div>
         </div>
       </section>
 
       {/* Timeline */}
-      <TimelineSection />
-
-      {/* Team */}
-      <TeamSection />
-
-      {/* Certifications */}
-      <CertificationsSection />
-
-      {/* Testimonial */}
-      <section className="py-24 bg-muted">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto text-center"
-          >
-            <Quote className="w-16 h-16 text-primary/20 mx-auto mb-8" />
-            <blockquote className="text-2xl md:text-3xl font-display text-card-foreground mb-8 leading-relaxed">
-              "Travailler avec BA Attitude, c'est avoir la garantie d'un partenaire 
-              fiable, créatif et professionnel. Leur équipe a su transformer notre 
-              vision en une réalité spectaculaire."
-            </blockquote>
-            <div>
-              <p className="font-semibold text-card-foreground">Marc Lefebvre</p>
-              <p className="text-muted-foreground">Directeur Général, Agence EVENTIS</p>
+          <FadeInSection className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-sm font-medium text-primary uppercase tracking-widest mb-4 block">
+              Notre Parcours
+            </span>
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-card-foreground">
+              15 ans d'<span className="text-gradient-gold">évolution</span>
+            </h2>
+          </FadeInSection>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="relative">
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-px bg-border" />
+              {milestones.map((milestone, index) => (
+                <FadeInSection key={milestone.year} delay={index * 0.1}>
+                  <div className={`relative flex items-center mb-12 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+                    <div className={`w-1/2 ${index % 2 === 0 ? 'pr-12 text-right' : 'pl-12'}`}>
+                      <div className="text-3xl font-display font-bold text-primary mb-2">{milestone.year}</div>
+                      <h3 className="text-xl font-display font-semibold text-card-foreground mb-1">{milestone.title}</h3>
+                      <p className="text-muted-foreground text-sm">{milestone.description}</p>
+                    </div>
+                    <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-primary border-4 border-background" />
+                  </div>
+                </FadeInSection>
+              ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-20 bg-background">
+      {/* Clients */}
+      <section className="py-24 bg-muted">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { value: "15+", label: "Années d'expérience" },
-              { value: "80%", label: "Clients agences" },
-              { value: "500+", label: "Événements réalisés" },
-              { value: "100%", label: "Clients satisfaits" },
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="text-4xl md:text-5xl font-display font-bold text-primary mb-2">
-                  {stat.value}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <FadeInSection>
+              <span className="text-sm font-medium text-primary uppercase tracking-widest mb-4 block">
+                Nos Clients
+              </span>
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-card-foreground mb-6">
+                Ils nous font <span className="text-gradient-gold">confiance</span>
+              </h2>
+              <p className="text-muted-foreground mb-8 leading-relaxed">
+                Nous travaillons principalement avec des agences événementielles et des entreprises B2B 
+                qui recherchent un partenaire technique fiable pour leurs salons professionnels.
+              </p>
+              <ul className="space-y-4">
+                {clients.map((client, index) => (
+                  <motion.li
+                    key={client}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-center gap-3"
+                  >
+                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="text-card-foreground">{client}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </FadeInSection>
+
+            <FadeInSection delay={0.2}>
+              <div className="bg-card border border-border rounded-lg p-8">
+                <Quote className="w-12 h-12 text-primary/20 mb-6" />
+                <blockquote className="text-xl font-display text-card-foreground mb-6 leading-relaxed">
+                  "BA Attitude est notre partenaire technique depuis 8 ans. Leur réactivité et leur 
+                  professionnalisme nous permettent d'aborder chaque salon en toute sérénité."
+                </blockquote>
+                <div>
+                  <p className="font-semibold text-card-foreground">Marie Dubois</p>
+                  <p className="text-muted-foreground text-sm">Directrice de Production</p>
+                  <p className="text-primary text-sm">Agence EVENTS+</p>
                 </div>
-                <div className="text-muted-foreground">{stat.label}</div>
-              </motion.div>
-            ))}
+              </div>
+            </FadeInSection>
           </div>
         </div>
       </section>
@@ -232,37 +314,26 @@ export default function About() {
       {/* CTA */}
       <section className="py-24 bg-card border-t border-border">
         <div className="container mx-auto px-4 text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-display font-bold text-card-foreground mb-6"
-          >
-            Prêt à travailler avec nous ?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-muted-foreground mb-8 max-w-2xl mx-auto"
-          >
-            Discutons de votre prochain projet et découvrez comment nous pouvons 
-            transformer vos idées en réalité.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <Button variant="gold" size="lg" asChild>
-              <Link to="/contact">
-                Contactez-nous
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </Button>
-          </motion.div>
+          <FadeInSection>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-card-foreground mb-6">
+              Prêt à travailler avec nous ?
+            </h2>
+            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Discutons de votre prochain salon ou événement professionnel. 
+              Notre équipe est à votre disposition pour étudier vos besoins.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button variant="gold" size="lg" asChild>
+                <Link to="/contact">
+                  Contactez-nous
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <Link to="/services">Découvrir nos services</Link>
+              </Button>
+            </div>
+          </FadeInSection>
         </div>
       </section>
     </Layout>

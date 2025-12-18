@@ -1,20 +1,28 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
+import { MapPin, Phone, Mail, ArrowUpRight, Linkedin, Instagram, Facebook } from "lucide-react";
 
 const services = [
-  { name: "Décoration Éphémère", href: "/services/decoration-ephemere" },
-  { name: "Scénographie", href: "/services/scenographie" },
-  { name: "Location de Matériel", href: "/services/location-materiel" },
-  { name: "Événements Corporatifs", href: "/services/evenements-corporatifs" },
-  { name: "Logistique", href: "/services/logistique" },
-  { name: "Support International", href: "/services/support-international" },
+  { name: "Salons Professionnels", href: "/services/salons-professionnels" },
+  { name: "Support Technique", href: "/services/support-technique" },
+  { name: "Montage & Démontage", href: "/services/montage-demontage" },
+  { name: "Logistique Terrain", href: "/services/logistique-terrain" },
+  { name: "International", href: "/international" },
+];
+
+const zones = [
+  { name: "Paris & Île-de-France", href: "/zones/paris" },
+  { name: "Lyon & Rhône-Alpes", href: "/zones/lyon" },
+  { name: "Marseille & PACA", href: "/zones/marseille" },
+  { name: "Bordeaux", href: "/zones/bordeaux" },
+  { name: "International", href: "/international" },
 ];
 
 const links = [
   { name: "Accueil", href: "/" },
   { name: "À Propos", href: "/a-propos" },
   { name: "Réalisations", href: "/realisations" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
   { name: "Mentions Légales", href: "/mentions-legales" },
 ];
@@ -23,7 +31,7 @@ export function Footer() {
   return (
     <footer className="bg-muted border-t border-border">
       <div className="container mx-auto px-4 py-16 lg:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -40,13 +48,24 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Spécialiste de la décoration événementielle haut de gamme. 
-              Du brief initial au démontage, nous créons des expériences inoubliables.
+              Spécialiste des prestations techniques et logistiques pour salons professionnels, 
+              foires et événements B2B en France et à l'international.
             </p>
+            <div className="flex items-center gap-4 mb-4">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-colors">
+                <Linkedin className="w-4 h-4" />
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-colors">
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center hover:border-primary hover:text-primary transition-colors">
+                <Facebook className="w-4 h-4" />
+              </a>
+            </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-xs text-muted-foreground">
-                Paris & Île-de-France · International
+                France · Europe · International
               </span>
             </div>
           </motion.div>
@@ -69,6 +88,31 @@ export function Footer() {
                     className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 group"
                   >
                     {service.name}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Zones */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
+          >
+            <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-6">
+              Zones d'intervention
+            </h3>
+            <ul className="space-y-3">
+              {zones.map((zone) => (
+                <li key={zone.name}>
+                  <Link
+                    to={zone.href}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 group"
+                  >
+                    {zone.name}
                     <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
                 </li>
@@ -116,7 +160,8 @@ export function Footer() {
                 <MapPin className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
                 <span className="text-sm text-muted-foreground">
                   16 Rue des Pendants<br />
-                  77340 Pontault-Combault
+                  77340 Pontault-Combault<br />
+                  France
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -153,7 +198,7 @@ export function Footer() {
             © {new Date().getFullYear()} BA Attitude. Tous droits réservés.
           </p>
           <p className="text-xs text-muted-foreground">
-            Décoration événementielle haut de gamme depuis plus de 15 ans
+            Expert en prestations techniques pour salons professionnels depuis plus de 15 ans
           </p>
         </motion.div>
       </div>
