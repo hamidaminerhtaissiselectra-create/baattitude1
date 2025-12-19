@@ -4,8 +4,8 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin, CheckCircle, Building2, Calendar, Users, Phone } from "lucide-react";
 import { ParallaxSection, FadeInSection } from "@/components/animations/ParallaxSection";
+import { SEOHead } from "@/components/seo/StructuredData";
 import heroImage from "@/assets/hero-event.jpg";
-
 const zonesData: Record<string, {
   city: string;
   region: string;
@@ -213,7 +213,12 @@ export default function ZoneIntervention() {
 
   return (
     <Layout>
-      {/* Hero */}
+      {/* noindex pour pages dynamiques - SEO conforme Google 2025 */}
+      <SEOHead
+        title={`${zone.title} | BA Attitude`}
+        description={zone.description}
+        noindex={true}
+      />
       <section className="pt-32 pb-20 bg-background relative overflow-hidden">
         <div className="absolute inset-0">
           <img
