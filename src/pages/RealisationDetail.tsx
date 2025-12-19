@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, MapPin, Calendar, Users, CheckCircle2, Quote } from "lucide-react";
-import { FadeInView, ParallaxImage, StaggerContainer, staggerItem } from "@/components/animations/ParallaxSection";
+import { FadeInSection, ParallaxImage, StaggerContainer, staggerItem } from "@/components/animations/ParallaxSection";
 import heroImage from "@/assets/hero-event.jpg";
 import serviceDecoration from "@/assets/service-decoration.jpg";
 import serviceScenography from "@/assets/service-scenography.jpg";
@@ -358,21 +358,21 @@ export default function RealisationDetail() {
               Retour aux réalisations
             </Link>
             
-            <FadeInView>
+            <FadeInSection>
               <span className="inline-block px-4 py-2 bg-primary/20 border border-primary/30 rounded-full text-primary text-sm font-medium mb-4">
                 {project.category}
               </span>
-            </FadeInView>
+            </FadeInSection>
             
-            <FadeInView delay={0.1}>
+            <FadeInSection delay={0.1}>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-card-foreground mb-4">
                 {project.title}
               </h1>
-            </FadeInView>
+            </FadeInSection>
             
-            <FadeInView delay={0.2}>
+            <FadeInSection delay={0.2}>
               <p className="text-xl text-primary font-medium">{project.client}</p>
-            </FadeInView>
+            </FadeInSection>
           </div>
         </motion.div>
       </section>
@@ -403,7 +403,7 @@ export default function RealisationDetail() {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16">
-            <FadeInView direction="left">
+            <FadeInSection direction="left">
               <h2 className="text-3xl font-display font-bold text-card-foreground mb-6">
                 À propos du <span className="text-gradient-gold">projet</span>
               </h2>
@@ -421,9 +421,9 @@ export default function RealisationDetail() {
                   <Link to="/services">Nos services</Link>
                 </Button>
               </div>
-            </FadeInView>
+            </FadeInSection>
             
-            <FadeInView direction="right" delay={0.2}>
+            <FadeInSection direction="right" delay={0.2}>
               <div className="bg-card border border-border rounded-2xl p-8">
                 <h3 className="text-xl font-display font-semibold text-card-foreground mb-6">
                   Services mobilisés
@@ -444,7 +444,7 @@ export default function RealisationDetail() {
                   ))}
                 </ul>
               </div>
-            </FadeInView>
+            </FadeInSection>
           </div>
         </div>
       </section>
@@ -452,15 +452,15 @@ export default function RealisationDetail() {
       {/* Gallery with Parallax */}
       <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
-          <FadeInView className="text-center mb-12">
+          <FadeInSection className="text-center mb-12">
             <h2 className="text-3xl font-display font-bold text-card-foreground">
               Galerie <span className="text-gradient-gold">photos</span>
             </h2>
-          </FadeInView>
+          </FadeInSection>
           
           <div className="grid md:grid-cols-3 gap-6">
             {project.gallery.map((image, index) => (
-              <FadeInView key={index} delay={index * 0.15}>
+              <FadeInSection key={index} delay={index * 0.15}>
                 <div className="aspect-[4/3] rounded-xl overflow-hidden">
                   <ParallaxImage 
                     src={image} 
@@ -469,7 +469,7 @@ export default function RealisationDetail() {
                     speed={0.2}
                   />
                 </div>
-              </FadeInView>
+              </FadeInSection>
             ))}
           </div>
         </div>
@@ -478,11 +478,11 @@ export default function RealisationDetail() {
       {/* Results */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <FadeInView className="text-center mb-12">
+          <FadeInSection className="text-center mb-12">
             <h2 className="text-3xl font-display font-bold text-card-foreground">
               Résultats <span className="text-gradient-gold">clés</span>
             </h2>
-          </FadeInView>
+          </FadeInSection>
           
           <StaggerContainer className="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
             {project.results.map((result, index) => (
@@ -504,7 +504,7 @@ export default function RealisationDetail() {
       {/* Testimonial */}
       <section className="py-20 bg-primary/5 border-y border-primary/20">
         <div className="container mx-auto px-4">
-          <FadeInView className="max-w-4xl mx-auto text-center">
+          <FadeInSection className="max-w-4xl mx-auto text-center">
             <Quote className="w-12 h-12 text-primary mx-auto mb-6" />
             <blockquote className="text-2xl md:text-3xl font-display text-card-foreground mb-8 leading-relaxed">
               "{project.testimonial.text}"
@@ -513,7 +513,7 @@ export default function RealisationDetail() {
               <p className="font-semibold text-card-foreground">{project.testimonial.author}</p>
               <p className="text-primary">{project.testimonial.company}</p>
             </div>
-          </FadeInView>
+          </FadeInSection>
         </div>
       </section>
 
@@ -521,14 +521,14 @@ export default function RealisationDetail() {
       {similarProjects.length > 0 && (
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
-            <FadeInView className="text-center mb-12">
+            <FadeInSection className="text-center mb-12">
               <span className="text-sm font-medium text-primary uppercase tracking-widest mb-2 block">
                 Projets similaires
               </span>
               <h2 className="text-3xl font-display font-bold text-card-foreground">
                 Découvrez d'autres <span className="text-gradient-gold">réalisations</span>
               </h2>
-            </FadeInView>
+            </FadeInSection>
             
             <StaggerContainer className="grid md:grid-cols-3 gap-8">
               {similarProjects.map((p) => (
@@ -594,7 +594,7 @@ export default function RealisationDetail() {
       {/* CTA */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 text-center">
-          <FadeInView>
+          <FadeInSection>
             <h2 className="text-3xl md:text-4xl font-display font-bold text-card-foreground mb-4">
               Un projet <span className="text-gradient-gold">similaire</span> ?
             </h2>
@@ -607,7 +607,7 @@ export default function RealisationDetail() {
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
-          </FadeInView>
+          </FadeInSection>
         </div>
       </section>
     </Layout>
