@@ -74,7 +74,7 @@ export function FadeInSection({
   className = "", 
   delay = 0,
   direction = "up" 
-}: FadeInViewProps) {
+}: FadeInSectionProps) {
   const directions = {
     up: { y: 60, x: 0 },
     down: { y: -60, x: 0 },
