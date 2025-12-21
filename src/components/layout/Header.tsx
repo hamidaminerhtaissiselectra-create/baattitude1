@@ -9,7 +9,9 @@ const services = [
   { name: "Salons Professionnels", href: "/services/salons-professionnels" },
   { name: "Support Technique", href: "/services/support-technique" },
   { name: "Montage & Démontage", href: "/services/montage-demontage" },
-  { name: "Logistique Terrain", href: "/services/logistique-terrain" },
+  { name: "Logistique & Coordination", href: "/services/logistique-coordination" },
+  { name: "Scénographie Stands", href: "/services/scenographie-stands" },
+  { name: "International", href: "/services/international" },
 ];
 
 const navigation = [
@@ -17,6 +19,7 @@ const navigation = [
   { name: "À Propos", href: "/a-propos" },
   { name: "Services", href: "/services", hasDropdown: true },
   { name: "Réalisations", href: "/realisations" },
+  { name: "Zones d'intervention", href: "/zones-intervention" },
   { name: "International", href: "/international" },
   { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
