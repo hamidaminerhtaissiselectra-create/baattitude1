@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-event.jpg";
+import salonProfessionnel from "@/assets/salon-professionnel-vue-ensemble.jpg";
 import { useRef } from "react";
 
 export function HeroSection() {
@@ -25,8 +25,8 @@ export function HeroSection() {
         className="absolute inset-0"
       >
         <img
-          src={heroImage}
-          alt="Prestations techniques événementielles - BA ATTITUDE"
+          src={salonProfessionnel}
+          alt="Salon professionnel B2B en France - Prestations techniques événementielles BA ATTITUDE"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background" />
@@ -82,7 +82,7 @@ export function HeroSection() {
               salons & événements
             </motion.span>
             <br />
-            <span className="text-card-foreground">B2B</span>
+            <span className="text-card-foreground">B2B en France</span>
           </motion.h1>
 
           <motion.p
@@ -91,8 +91,8 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed"
           >
-            Spécialiste des salons professionnels, foires et expositions. 
-            Montage, démontage, logistique et coordination terrain en France et à l'international.
+            Spécialiste des salons professionnels, foires et expositions B2B. 
+            Montage de stands, démontage, logistique et coordination terrain à Paris, Lyon, Marseille, Bordeaux et dans toute la France.
           </motion.p>
 
           <motion.div
@@ -103,7 +103,7 @@ export function HeroSection() {
           >
             <Button variant="hero" asChild className="group">
               <Link to="/contact">
-                Demander un Devis
+                Demander un Devis Gratuit
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
@@ -124,7 +124,7 @@ export function HeroSection() {
           >
             {[
               { value: "15+", label: "Ans d'expérience" },
-              { value: "12", label: "Pays couverts" },
+              { value: "30+", label: "Pays couverts" },
               { value: "500+", label: "Projets réalisés" },
             ].map((stat, index) => (
               <motion.div 
