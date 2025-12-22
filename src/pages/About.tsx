@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Award, Users, Heart, Shield, Quote, CheckCircle, Building2, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ParallaxSection, FadeInSection } from "@/components/animations/ParallaxSection";
+import { SEOHead, LocalBusinessSchema, BreadcrumbSchema } from "@/components/seo/StructuredData";
 import aboutTeam from "@/assets/about-team.jpg";
+import montageStand from "@/assets/montage-stand-salon-paris.jpg";
+import scenographie from "@/assets/scenographie-stand-premium.jpg";
 
 const values = [
   {
@@ -57,6 +60,17 @@ const clients = [
 export default function About() {
   return (
     <Layout>
+      <SEOHead
+        title="À Propos de BA ATTITUDE | Expert Prestations Techniques Événementielles"
+        description="Découvrez BA ATTITUDE, votre partenaire technique pour les salons professionnels depuis 15 ans. Équipes qualifiées, intervention France entière, 500+ projets réalisés."
+        canonical="https://baattitude.fr/a-propos"
+      />
+      <LocalBusinessSchema />
+      <BreadcrumbSchema items={[
+        { name: "Accueil", url: "https://baattitude.fr" },
+        { name: "À Propos", url: "https://baattitude.fr/a-propos" },
+      ]} />
+
       {/* Hero */}
       <section className="pt-32 pb-20 bg-background relative overflow-hidden">
         <div className="absolute top-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
@@ -101,7 +115,7 @@ export default function About() {
                 <div className="aspect-[4/5] rounded-lg overflow-hidden">
                   <img
                     src={aboutTeam}
-                    alt="L'équipe BA Attitude"
+                    alt="Équipe BA ATTITUDE spécialiste montage stands salons professionnels"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -138,6 +152,38 @@ export default function About() {
                   </div>
                 ))}
               </div>
+            </FadeInSection>
+          </div>
+        </div>
+      </section>
+
+      {/* Images Section */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <FadeInSection>
+              <div className="aspect-video rounded-lg overflow-hidden border border-border">
+                <img
+                  src={montageStand}
+                  alt="Équipe de monteurs de stands BA ATTITUDE en action sur un salon professionnel à Paris"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="mt-4 text-sm text-muted-foreground text-center">
+                Notre équipe en action lors d'un montage de stand
+              </p>
+            </FadeInSection>
+            <FadeInSection delay={0.2}>
+              <div className="aspect-video rounded-lg overflow-hidden border border-border">
+                <img
+                  src={scenographie}
+                  alt="Stand scénographique premium réalisé par BA ATTITUDE avec éclairage design"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="mt-4 text-sm text-muted-foreground text-center">
+                Un stand scénographique premium avec éclairage design
+              </p>
             </FadeInSection>
           </div>
         </div>
@@ -213,14 +259,14 @@ export default function About() {
                   <Building2 className="w-10 h-10 text-primary mb-4" />
                   <h3 className="font-display font-semibold text-card-foreground mb-2">France</h3>
                   <p className="text-sm text-muted-foreground">
-                    Intervention sur tous les grands sites d'exposition français
+                    Paris, Lyon, Marseille, Bordeaux, Lille et tous les sites d'exposition français
                   </p>
                 </div>
                 <div className="bg-card border border-border rounded-lg p-6">
                   <Globe className="w-10 h-10 text-primary mb-4" />
                   <h3 className="font-display font-semibold text-card-foreground mb-2">International</h3>
                   <p className="text-sm text-muted-foreground">
-                    Réseau de partenaires dans plus de 30 pays
+                    Réseau de partenaires dans plus de 30 pays en Europe, Amérique et Asie
                   </p>
                 </div>
               </div>
