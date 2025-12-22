@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
+import { SEOHead, BreadcrumbSchema, FAQSchema } from "@/components/seo/StructuredData";
 import { ArrowRight, Globe, Users, CheckCircle, MapPin, Plane, Building2, Handshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ParallaxSection, FadeInSection } from "@/components/animations/ParallaxSection";
@@ -52,9 +53,41 @@ const testimonial = {
   company: "Groupe LVMH",
 };
 
+const internationalFaqs = [
+  {
+    question: "Dans quels pays intervenez-vous ?",
+    answer: "Nous intervenons dans plus de 30 pays à travers le monde : Europe (Allemagne, Royaume-Uni, Italie, Espagne...), Moyen-Orient (Dubaï, Qatar, Arabie Saoudite...), Asie (Singapour, Hong Kong, Japon...) et Amérique (États-Unis, Brésil...). Notre réseau de partenaires locaux nous permet d'assurer une qualité constante partout.",
+  },
+  {
+    question: "Comment gérez-vous les formalités douanières ?",
+    answer: "Notre équipe spécialisée prend en charge l'intégralité des formalités douanières : ATA Carnets, documents d'exportation temporaire, déclarations en douane. Nous anticipons les délais et réglementations spécifiques à chaque pays pour garantir la livraison de votre matériel dans les temps.",
+  },
+  {
+    question: "Avez-vous des équipes sur place à l'étranger ?",
+    answer: "Nous travaillons avec un réseau de partenaires locaux qualifiés dans chaque pays d'intervention. Un chef de projet BA ATTITUDE se déplace systématiquement pour superviser les opérations et garantir le respect de nos standards de qualité.",
+  },
+  {
+    question: "Quels sont vos délais pour un projet international ?",
+    answer: "Les délais varient selon la destination et la complexité du projet. En général, nous recommandons un délai de 6 à 8 semaines pour un projet international standard, 3 à 4 mois pour les projets complexes incluant transport maritime ou destinations lointaines.",
+  },
+];
+
+const internationalBreadcrumbs = [
+  { name: "Accueil", url: "https://baattitude.fr/" },
+  { name: "International", url: "https://baattitude.fr/international" },
+];
+
 export default function International() {
   return (
     <Layout>
+      <SEOHead
+        title="Prestations Internationales | Salons Professionnels Monde - BA ATTITUDE"
+        description="Interventions sur salons professionnels dans plus de 30 pays. Coordination locale, logistique internationale et formalités douanières. Partenaire événementiel mondial."
+        canonical="https://baattitude.fr/international"
+      />
+      <BreadcrumbSchema items={internationalBreadcrumbs} />
+      <FAQSchema faqs={internationalFaqs} />
+      
       {/* Hero */}
       <section className="pt-32 pb-20 bg-background relative overflow-hidden">
         <div className="absolute inset-0">

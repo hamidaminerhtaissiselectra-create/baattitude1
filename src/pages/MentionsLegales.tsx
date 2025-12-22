@@ -1,9 +1,23 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
+import { SEOHead, BreadcrumbSchema } from "@/components/seo/StructuredData";
+
+const mentionsBreadcrumbs = [
+  { name: "Accueil", url: "https://baattitude.fr/" },
+  { name: "Mentions légales", url: "https://baattitude.fr/mentions-legales" },
+];
 
 export default function MentionsLegales() {
   return (
     <Layout>
+      <SEOHead
+        title="Mentions Légales | BA ATTITUDE - Prestataire Événementiel"
+        description="Mentions légales du site BA ATTITUDE. Informations sur l'éditeur, l'hébergement, la propriété intellectuelle et la protection des données personnelles."
+        canonical="https://baattitude.fr/mentions-legales"
+        noindex={true}
+      />
+      <BreadcrumbSchema items={mentionsBreadcrumbs} />
+      
       <section className="pt-32 pb-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">

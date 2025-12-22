@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
+import { SEOHead, BreadcrumbSchema } from "@/components/seo/StructuredData";
 import { ArrowRight, Calendar, User, Clock, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-event.jpg";
@@ -81,12 +82,24 @@ const articles = [
   },
 ];
 
+const blogBreadcrumbs = [
+  { name: "Accueil", url: "https://baattitude.fr/" },
+  { name: "Blog", url: "https://baattitude.fr/blog" },
+];
+
 export default function Blog() {
   const featuredArticle = articles.find(a => a.featured);
   const regularArticles = articles.filter(a => !a.featured);
 
   return (
     <Layout>
+      <SEOHead
+        title="Blog Événementiel B2B | Conseils Salons Professionnels - BA ATTITUDE"
+        description="Conseils d'experts, bonnes pratiques et actualités du secteur événementiel B2B. Guides pour réussir vos salons professionnels et événements corporate."
+        canonical="https://baattitude.fr/blog"
+      />
+      <BreadcrumbSchema items={blogBreadcrumbs} />
+      
       {/* Hero */}
       <section className="pt-32 pb-20 bg-background relative overflow-hidden">
         <div className="absolute top-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />

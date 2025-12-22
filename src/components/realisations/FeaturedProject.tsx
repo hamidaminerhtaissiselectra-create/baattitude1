@@ -18,7 +18,7 @@ export function FeaturedProject() {
             <div className="aspect-[4/3] rounded-lg overflow-hidden">
               <img
                 src={heroImage}
-                alt="Projet vedette - Gala DIOR"
+                alt="Gala événementiel DIOR Paris - Décoration luxe Palais de Tokyo par BA ATTITUDE"
                 className="w-full h-full object-cover"
               />
             </div>

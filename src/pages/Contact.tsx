@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { MapPin, Phone, Mail, Clock, Instagram, Linkedin, Facebook } from "lucide-react";
@@ -10,6 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { SEOHead, LocalBusinessSchema, FAQSchema, BreadcrumbSchema } from "@/components/seo/StructuredData";
 
 const contactFaqs = [
   {
@@ -26,9 +26,43 @@ const contactFaqs = [
   },
 ];
 
+const contactBreadcrumbs = [
+  { name: "Accueil", url: "https://baattitude.fr/" },
+  { name: "Contact", url: "https://baattitude.fr/contact" },
+];
+
 export default function Contact() {
   return (
     <Layout>
+      <SEOHead
+        title="Contact & Devis Gratuit | BA ATTITUDE - Prestataire Événementiel Paris"
+        description="Demandez un devis gratuit pour vos salons professionnels et événements B2B. Réponse sous 24h. BA ATTITUDE, votre partenaire événementiel en Île-de-France."
+        canonical="https://baattitude.fr/contact"
+      />
+      <LocalBusinessSchema
+        name="BA ATTITUDE"
+        description="Prestataire technique événementiel spécialisé dans les salons professionnels et événements B2B en France et à l'international."
+        telephone="+33177000952"
+        email="contact@baattitude.fr"
+        address={{
+          streetAddress: "16 Rue des Pendants de La Queue-en-Brie",
+          addressLocality: "Pontault-Combault",
+          postalCode: "77340",
+          addressCountry: "FR",
+        }}
+        openingHours={["Mo-Fr 09:00-18:00"]}
+        areaServed={["Paris", "Île-de-France", "France", "Europe"]}
+        serviceType={[
+          "Montage de stands",
+          "Démontage de stands",
+          "Logistique événementielle",
+          "Support technique salons",
+          "Scénographie événementielle",
+        ]}
+      />
+      <FAQSchema faqs={contactFaqs} />
+      <BreadcrumbSchema items={contactBreadcrumbs} />
+      
       {/* Hero */}
       <section className="pt-32 pb-20 bg-background relative overflow-hidden">
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />

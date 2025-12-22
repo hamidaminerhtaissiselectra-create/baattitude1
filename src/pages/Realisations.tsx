@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
+import { SEOHead, BreadcrumbSchema } from "@/components/seo/StructuredData";
 import { ArrowUpRight, ArrowRight, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ParallaxSection, FadeInSection } from "@/components/animations/ParallaxSection";
@@ -112,6 +113,11 @@ const allClients = [
   "Orange", "BNP Paribas", "Carrefour", "Danone", "Total"
 ];
 
+const realisationsBreadcrumbs = [
+  { name: "Accueil", url: "https://baattitude.fr/" },
+  { name: "Réalisations", url: "https://baattitude.fr/realisations" },
+];
+
 export default function Realisations() {
   const [activeCategory, setActiveCategory] = useState("Tous");
 
@@ -121,6 +127,13 @@ export default function Realisations() {
 
   return (
     <Layout>
+      <SEOHead
+        title="Nos Réalisations | Salons Professionnels & Événements B2B - BA ATTITUDE"
+        description="Découvrez nos projets événementiels : Maison & Objet, SIAL Paris, ITB Berlin... +500 salons professionnels réalisés en France et à l'international."
+        canonical="https://baattitude.fr/realisations"
+      />
+      <BreadcrumbSchema items={realisationsBreadcrumbs} />
+      
       {/* Hero */}
       <section className="pt-32 pb-20 bg-background relative overflow-hidden">
         <div className="absolute top-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
