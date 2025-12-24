@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight, ArrowRight, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
-import serviceDecoration from "@/assets/service-decoration.jpg";
-import serviceScenography from "@/assets/service-scenography.jpg";
-import serviceLocation from "@/assets/service-location.jpg";
-import serviceCorporate from "@/assets/service-corporate.jpg";
-import serviceLogistique from "@/assets/service-logistique.jpg";
-import serviceInternational from "@/assets/service-international.jpg";
+import heroSalonProfessionnel from "@/assets/hero-salon-professionnel.jpg";
+import equipeMontageStand from "@/assets/equipe-montage-stand.jpg";
+import logistiqueEntrepot from "@/assets/logistique-entrepot.jpg";
+import standScenographiePremium from "@/assets/stand-scenographie-premium.jpg";
+import supportTechniqueRegie from "@/assets/support-technique-regie.jpg";
+import conferenceInternationale from "@/assets/conference-internationale.jpg";
 import { FAQSection } from "@/components/home/FAQSection";
 
 const services = [
@@ -17,42 +17,42 @@ const services = [
     id: "salons-professionnels",
     title: "Salons Professionnels",
     description: "Expertise complète pour vos participations aux salons, foires et expositions. Montage, démontage et coordination sur site.",
-    image: serviceDecoration,
+    image: heroSalonProfessionnel,
     features: ["Montage de stands", "Coordination terrain", "Gestion logistique"],
   },
   {
     id: "support-technique",
     title: "Support Technique Événementiel",
     description: "Accompagnement technique complet pour tous types d'événements B2B : congrès, conventions, forums professionnels.",
-    image: serviceScenography,
+    image: supportTechniqueRegie,
     features: ["Assistance technique", "Coordination équipes", "Support 24/7"],
   },
   {
     id: "montage-demontage",
     title: "Montage & Démontage",
     description: "Équipes expertes pour le montage et démontage de stands, décors et installations événementielles dans les délais impartis.",
-    image: serviceLocation,
+    image: equipeMontageStand,
     features: ["Équipes qualifiées", "Respect des délais", "Normes de sécurité"],
   },
   {
     id: "logistique-coordination",
     title: "Logistique & Coordination",
     description: "Gestion complète de la logistique événementielle : transport, stockage, manutention et coordination terrain.",
-    image: serviceLogistique,
+    image: logistiqueEntrepot,
     features: ["Transport sécurisé", "Stockage", "Manutention"],
   },
   {
     id: "scenographie-stands",
     title: "Scénographie de Stands",
     description: "Conception et réalisation de décors et scénographies sur mesure pour valoriser votre présence sur les salons.",
-    image: serviceCorporate,
+    image: standScenographiePremium,
     features: ["Design sur mesure", "Fabrication", "Installation"],
   },
   {
     id: "international",
     title: "Prestations Internationales",
     description: "Déploiement de nos services à l'international avec la même qualité d'exécution. Coordination multi-pays et expertise export.",
-    image: serviceInternational,
+    image: conferenceInternationale,
     features: ["12+ pays couverts", "Coordination globale", "Expertise export"],
   },
 ];
